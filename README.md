@@ -139,7 +139,7 @@ This project was developed by a team of three students as part of the **Object-O
 |---|---|---|
 | **Dimitar Ivanov** | Github profile | Role |
 | **Mina Evtimova** | Github profile | Role |
-| **Nikola Georgiev** | Github profile | Role |
+| **Mira** | Github profile | Role |
  
 ---
  
