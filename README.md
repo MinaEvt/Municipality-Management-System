@@ -137,9 +137,9 @@ This project was developed by a team of three students as part of the **Object-O
  
 | Name | GitHub | Role |
 |---|---|---|
-| **Dimitar Ivanov** | Github profile | Role |
-| **Mina Evtimova** | Github profile | Role |
-| **Mira** | Github profile | Role |
+| **Dimitar Ivanov** | @dimitar0315 | Role |
+| **Mina Evtimova** | @MinaEvt | Role |
+| **Miroslava Kostova** | @mirskk | Role |
  
 ---
  
