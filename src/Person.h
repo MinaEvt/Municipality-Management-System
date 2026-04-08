@@ -2,6 +2,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 
+//
 #include <string>
 #include <iostream>
 
@@ -36,6 +37,12 @@ public:
     // Operator overloading
     friend std::ostream& operator<<(std::ostream& os, const Person& person);
     bool operator==(const Person& other) const;
+
+    //Validation
+    static bool validateName(const std::string& name);
+    static bool validateId(int id);
+    static bool validateAddress(const std::string& address);
+
 };
 
 #endif // PERSON_H
