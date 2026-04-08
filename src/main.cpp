@@ -131,7 +131,7 @@ int main() {
     std::cout << "========================\n\n";
     // --- end of tests ---
 
-    while (true) {
+    // while (true) {
         // displayMenu();
         // int choice = Utils::getIntInput("");
 
@@ -154,7 +154,7 @@ int main() {
         //     default:
         //         break;
         // }
-    }
+    // }
 
     return 0;
 }
