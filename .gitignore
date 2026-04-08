@@ -35,4 +35,8 @@ Makefile.cmake
 .DS_Store
 
 # Logs
+<<<<<<< HEAD
 *.log
+=======
+*.log
+>>>>>>> 40b0d892ed2e183314f5fb7ed1b0dd25e2ff306f
