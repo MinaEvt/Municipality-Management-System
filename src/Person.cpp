@@ -1,7 +1,10 @@
 #include "Person.h"
 
-Person::Person(const std::string& name, int id, const std::string& address)
-    : name(name), id(id), address(address) {}
+Person::Person(const std::string& name, int id, const std::string& address) {
+    setName(name);
+    setId(id);
+    setAddress(address);
+}
 
 //getters
 std::string Person::getName() const { 

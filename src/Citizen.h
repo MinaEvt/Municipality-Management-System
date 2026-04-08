@@ -26,6 +26,9 @@ public:
     // Override virtual methods
     void display() const override;
     std::string getType() const override;
+
+    static bool validatePhoneNumber(const std::string& phoneNumber);
+    static bool validateEmail(const std::string& email);
 };
 
 #endif // CITIZEN_H
