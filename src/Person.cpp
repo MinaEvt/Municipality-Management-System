@@ -35,12 +35,15 @@ void Person::setAddress(const std::string& address) {
 
 // Operator overloading
 std::ostream& operator<<(std::ostream& os, const Person& person) { 
+    os << person.getType() << ": " << person.getName() << ", ID: " << person.getId() 
+       << ", Address: " << person.getAddress();
     return os; 
 }
 
 // Equality operator compares name, id, and address
 bool Person::operator==(const Person& other) const { 
-    return false; 
+    
+    return name == other.name && id == other.id && address == other.address; 
 }
 
 bool Person::validateName(const std::string& name) {
@@ -68,6 +71,10 @@ bool Person::validateId(int id) {
 }
 
 bool Person::validateAddress(const std::string& address) {
-    // Example validation: Address should not be empty
-    return !address.empty();
+    // Example validation: Address should not be empty and should not contain only spaces
+    return !address.empty() && address.find_first_not_of(' ') != std::string::npos;
+}
+
+std::string Person::toString() const {
+    return getType() + "," + getName() + "," + std::to_string(getId()) + "," + getAddress();
 }

@@ -43,6 +43,9 @@ public:
     static bool validateId(int id);
     static bool validateAddress(const std::string& address);
 
+    //for file saving
+    virtual std::string toString() const;
+
 };
 
 #endif // PERSON_H

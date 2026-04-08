@@ -29,6 +29,11 @@ public:
 
     static bool validatePhoneNumber(const std::string& phoneNumber);
     static bool validateEmail(const std::string& email);
+
+    //operator
+    std::string toString() const override;
+    friend std::ostream& operator<<(std::ostream& os, const Citizen& c);
+
 };
 
 #endif // CITIZEN_H

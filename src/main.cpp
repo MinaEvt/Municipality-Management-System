@@ -88,6 +88,46 @@ int main() {
         std::cout << "[PASS] Invalid email rejected: " << e.what() << "\n";
     }
 
+    // empty phone
+    try {
+        Citizen c("Elena Hristova", 5, "ul. Vitosha 3", "", "elena@mail.com");
+        std::cout << "[FAIL] Empty phone should be rejected\n";
+    } catch (const std::exception& e) {
+        std::cout << "[PASS] Empty phone rejected: " << e.what() << "\n";
+    }
+
+    // email with dot before @
+    try {
+        Citizen c("Stoyan Kolev", 6, "ul. Rakovski 2", "0877654321", "stoyan.kolevmail@com");
+        std::cout << "[PASS] Email accepted\n";
+    } catch (const std::exception& e) {
+        std::cout << "[FAIL] " << e.what() << "\n";
+    }
+
+    // valid employee
+    try {
+        Employee e("Nadezhda Todorova", 7, "ul. Oborishte 4", "Engineer", "IT", 3500.0);
+        std::cout << "[PASS] Valid employee created\n";
+    } catch (const std::exception& e) {
+        std::cout << "[FAIL] " << e.what() << "\n";
+    }
+
+    // employee with numbers in name
+    try {
+        Employee e("Nadezhda123", 8, "ul. Oborishte 4", "Engineer", "IT", 3500.0);
+        std::cout << "[FAIL] Employee name with numbers should be rejected\n";
+    } catch (const std::exception& e) {
+        std::cout << "[PASS] Employee name with numbers rejected: " << e.what() << "\n";
+    }
+
+    // employee with id 0
+    try {
+        Employee e("Boris Georgiev", 0, "ul. Tzar 6", "Manager", "HR", 4000.0);
+        std::cout << "[FAIL] Employee with ID 0 should be rejected\n";
+    } catch (const std::exception& e) {
+        std::cout << "[PASS] Employee with ID 0 rejected: " << e.what() << "\n";
+    }
+
     std::cout << "========================\n\n";
     // --- end of tests ---
 

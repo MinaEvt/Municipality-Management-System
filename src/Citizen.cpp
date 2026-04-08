@@ -42,12 +42,22 @@ std::string Citizen::getType() const {
     return "Citizen";
 }
 
+std::string Citizen::toString() const {
+    return Person::toString() + "," + phoneNumber + "," + email;
+}
+
 bool Citizen::validatePhoneNumber(const std::string& phoneNumber){
     //Phone number should not be empty and should contain only digits and dashes
+
+    //TO-DO - add more complex validation (length, country code, etc.)
     if (phoneNumber.empty())
         return false;
     for (size_t i = 0; i < phoneNumber.length(); ++i){
         if(!std::isdigit(phoneNumber[i]) && phoneNumber[i] != ' ')
+            return false;
+        if(i == 0 && phoneNumber[i] == ' ')
+            return false;
+        if(i == phoneNumber.length() - 1 && phoneNumber[i] == ' ')
             return false;
     }
     return true;
@@ -55,11 +65,19 @@ bool Citizen::validatePhoneNumber(const std::string& phoneNumber){
 
 bool Citizen::validateEmail(const std::string& email){
     //Email should not be empty and should contain @ and .
+
+    //TO-DO - add more complex validation (regex, etc.)
     if (email.empty())
         return false;
     size_t atPos = email.find('@');
     size_t dotPos = email.find('.');
     if (atPos == std::string::npos || dotPos == std::string::npos || atPos >= dotPos)
+        return false;
+    if(atPos == 0 || dotPos == email.length() - 1)
+        return false;
+    if(email.find(' ') != std::string::npos)
+        return false;
+    if(email.find('@', atPos + 1) != std::string::npos)
         return false;
     return true;
 }
