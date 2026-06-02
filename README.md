@@ -135,11 +135,12 @@ Navigate using number keys. All data is automatically saved on exit.
  
 This project was developed by a team of three students as part of the **Object-Oriented Programming** course.
  
-| Name | GitHub | Role |
-|---|---|---|
-| **Dimitar Ivanov** | @dimitar0315 | Role |
-| **Mina Evtimova** | @MinaEvt | Role |
-| **Miroslava Kostova** | @mirskk | Role |
+| Name | GitHub |
+|---|---|
+| **Dimitar Ivanov** | @dimitar0315 |
+| **Mina Evtimova** | @MinaEvt |
+| **Miroslava Kostova** | @mirskk |
+| **Angel Valentinov** | @AngelValentinov963 |
  
 ---
  
