@@ -18,6 +18,7 @@ out/
 *.user
 *.suo
 *.sln.docstuff
+Solution/.vs/*
 
 # CMake
 CMakeFiles/
