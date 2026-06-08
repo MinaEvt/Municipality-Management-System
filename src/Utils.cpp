@@ -7,7 +7,11 @@
 int Utils::getIntInput(const std::string& prompt) {
     int value;
     std::cout << prompt;
-    std::cin >> value;
+    while (!(std::cin >> value)) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a number: ";
+    }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return value;
 }
@@ -45,7 +49,18 @@ void Utils::pause() {
 }
 
 // Validate email format using regex
-bool Utils::isValidEmail(const std::string& email) { return false; }
+bool Utils::isValidEmail(const std::string& email) {
+    if (email.empty()) return false;
+    std::regex pattern(R"(^[^\s@]+@[^\s@]+\.[^\s@]+$)");
+    return std::regex_match(email, pattern);
+}
 
-// Validate phone number format (simple regex for demonstration)
-bool Utils::isValidPhone(const std::string& phone) { return false; }
+// Validate phone number format — digits only, optional internal spaces
+bool Utils::isValidPhone(const std::string& phone) {
+    if (phone.empty()) return false;
+    for (size_t i = 0; i < phone.length(); ++i) {
+        if (!std::isdigit(phone[i]) && phone[i] != ' ') return false;
+        if ((i == 0 || i == phone.length() - 1) && phone[i] == ' ') return false;
+    }
+    return true;
+}

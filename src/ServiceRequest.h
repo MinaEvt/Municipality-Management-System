@@ -41,6 +41,7 @@ public:
 
     // Methods
     void display() const;
+    std::string toString() const;
 
     // Operator overloading
     friend std::ostream& operator<<(std::ostream& os, const ServiceRequest& request);

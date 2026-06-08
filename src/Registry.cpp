@@ -37,12 +37,12 @@ void Registry::addCitizen(std::unique_ptr<Citizen> citizen) {
     }
 
     if (!Citizen::validateEmail(citizen->getEmail())) {
-        std::cerr << "Invalid emil address!\n";
+        std::cerr << "Invalid email address!\n";
     }
 
     if (citizen->getId() > 0) {
         if (findCitizen(citizen->getId())) {
-            std::cerr << "Citizen alredy has Id: " << citizen->getId() << "\n";
+            std::cerr << "Citizen already has Id: " << citizen->getId() << "\n";
             return;
         }
         if (citizen->getId() >= nextCitizenId) {
@@ -113,8 +113,8 @@ void Registry::addEmployee(std::unique_ptr<Employee> employee) {
     }
 
     if (employee->getId() > 0) {
-        if (findCitizen(employee->getId())) {
-            std::cerr << "Employee alredy has Id: " << employee->getId() << "\n";
+        if (findEmployee(employee->getId())) {
+            std::cerr << "Employee already has Id: " << employee->getId() << "\n";
             return;
         }
         if (employee->getId() >= nextEmployeeId) {
@@ -153,7 +153,7 @@ void Registry::displayEmployees() const {
         return;
     }
 
-    std::cout << "Number of citizens (" << employees.size() << "):\n";
+    std::cout << "Number of employees (" << employees.size() << "):\n";
     for (const auto& e : employees) {
         if (e) {
             e->display();
@@ -196,7 +196,7 @@ void Registry::addServiceRequest(std::unique_ptr<ServiceRequest> request) {
     requests.push_back(std::move(request));
 }
 
-// Find service request by IDgitk --
+// Find service request by ID
 ServiceRequest* Registry::findServiceRequest(int id) {
     auto it = std::find_if(requests.begin(), requests.end(),
         [id](const std::unique_ptr<ServiceRequest>& r) {
@@ -240,41 +240,95 @@ void Registry::updateRequestStatus(int requestId, RequestStatus status) {
 
 // File operations
 void Registry::saveToFiles() const {
-    //Save citizens to txt file
-    //Using txt file because we want it to be human readable
-    //The program is for administrative systems
-
-    std::ofstream outFile("../data/citizens_registry.txt");
-    if(!outFile){
+    std::ofstream citizensFile("../data/citizens_registry.txt");
+    if (!citizensFile) {
         std::cerr << "Error opening file for writing: citizens_registry.txt\n";
         return;
     }
-    for (size_t i = 0; i < citizens.size(); i++){
-        outFile << citizens[i]->toString() << "\n";
+    for (const auto& c : citizens) {
+        citizensFile << c->toString() << "\n";
+    }
+
+    std::ofstream employeesFile("../data/employees_registry.txt");
+    if (!employeesFile) {
+        std::cerr << "Error opening file for writing: employees_registry.txt\n";
+        return;
+    }
+    for (const auto& e : employees) {
+        employeesFile << e->toString() << "\n";
+    }
+
+    std::ofstream requestsFile("../data/requests_registry.txt");
+    if (!requestsFile) {
+        std::cerr << "Error opening file for writing: requests_registry.txt\n";
+        return;
+    }
+    for (const auto& r : requests) {
+        requestsFile << r->toString() << "\n";
     }
 }
 
 // Load data from files into the registry
 void Registry::loadFromFiles() {
-//TODO - add error handling, file format validation, etc.
-
-    std::ifstream inFile("../data/citizens_registry.txt");
-    if(!inFile){
-        std::cerr << "Error opening file for reading: citizens_registry.txt\n";
-        return;
+    std::ifstream citizensFile("../data/citizens_registry.txt");
+    if (citizensFile) {
+        std::string line;
+        while (std::getline(citizensFile, line)) {
+            if (line.empty()) continue;
+            std::stringstream ss(line);
+            std::string type, name, idStr, address, phone, email;
+            std::getline(ss, type, ',');
+            std::getline(ss, name, ',');
+            std::getline(ss, idStr, ',');
+            std::getline(ss, address, ',');
+            std::getline(ss, phone, ',');
+            std::getline(ss, email, ',');
+            try {
+                auto c = std::make_unique<Citizen>(name, std::stoi(idStr), address, phone, email);
+                addCitizen(std::move(c));
+            } catch (...) {}
+        }
     }
-    std::string line;
-    while(std::getline(inFile, line)){
-        std::stringstream ss(line);
-        std::string name, address, phoneNumber, email;
-        int id;
-        std::getline(ss, name, ',');
-        ss >> id;
-        ss.ignore(); // ignore the comma
-        std::getline(ss, address, ',');
-        std::getline(ss, phoneNumber, ',');
-        std::getline(ss, email, ',');
 
+    std::ifstream employeesFile("../data/employees_registry.txt");
+    if (employeesFile) {
+        std::string line;
+        while (std::getline(employeesFile, line)) {
+            if (line.empty()) continue;
+            std::stringstream ss(line);
+            std::string type, name, idStr, address, role, department, salaryStr;
+            std::getline(ss, type, ',');
+            std::getline(ss, name, ',');
+            std::getline(ss, idStr, ',');
+            std::getline(ss, address, ',');
+            std::getline(ss, role, ',');
+            std::getline(ss, department, ',');
+            std::getline(ss, salaryStr, ',');
+            try {
+                auto e = std::make_unique<Employee>(name, std::stoi(idStr), address, role, department, std::stod(salaryStr));
+                addEmployee(std::move(e));
+            } catch (...) {}
+        }
+    }
+
+    std::ifstream requestsFile("../data/requests_registry.txt");
+    if (requestsFile) {
+        std::string line;
+        while (std::getline(requestsFile, line)) {
+            if (line.empty()) continue;
+            std::stringstream ss(line);
+            std::string reqIdStr, citizenIdStr, type, description, statusStr;
+            std::getline(ss, reqIdStr, ',');
+            std::getline(ss, citizenIdStr, ',');
+            std::getline(ss, type, ',');
+            std::getline(ss, description, ',');
+            std::getline(ss, statusStr, ',');
+            try {
+                RequestStatus status = static_cast<RequestStatus>(std::stoi(statusStr));
+                auto r = std::make_unique<ServiceRequest>(std::stoi(reqIdStr), std::stoi(citizenIdStr), type, description, status);
+                addServiceRequest(std::move(r));
+            } catch (...) {}
+        }
     }
 }
 
@@ -327,6 +381,8 @@ void Registry::generateReport() const {
 
     std::ofstream file("../data/registry_report.txt");
     if (!file) {
-        std::cerr << "Could not open ../data/registry_report.txt for a writing\n";
+        std::cerr << "Could not open ../data/registry_report.txt for writing\n";
+    } else {
+        file << out.str();
     }
 }

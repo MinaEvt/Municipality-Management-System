@@ -31,6 +31,7 @@ public:
     // Override virtual methods
     void display() const override;
     std::string getType() const override;
+    std::string toString() const override;
 };
 
 #endif // EMPLOYEE_H

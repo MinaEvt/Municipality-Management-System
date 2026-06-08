@@ -39,3 +39,7 @@ void Employee::display() const {
 std::string Employee::getType() const {
     return "Employee";
 }
+
+std::string Employee::toString() const {
+    return Person::toString() + "," + role + "," + department + "," + std::to_string(salary);
+}

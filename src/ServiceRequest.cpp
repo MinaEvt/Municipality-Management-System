@@ -59,7 +59,23 @@ std::string ServiceRequest::getStatusString() const {
 }
 
 // Method to display service request details
-void ServiceRequest::display() const {}
+void ServiceRequest::display() const {
+    std::cout << "Request #" << requestId
+              << " | Citizen ID: " << citizenId
+              << " | Type: " << requestType
+              << " | Status: " << getStatusString();
+    if (!description.empty())
+        std::cout << " | Desc: " << description;
+    std::cout << "\n";
+}
+
+std::string ServiceRequest::toString() const {
+    return std::to_string(requestId) + "," +
+           std::to_string(citizenId) + "," +
+           requestType + "," +
+           description + "," +
+           std::to_string(static_cast<int>(status));
+}
 
 // Operator overloading for output stream
 std::ostream& operator<<(std::ostream& os, const ServiceRequest& request) {
