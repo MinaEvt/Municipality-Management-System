@@ -19,12 +19,18 @@ double Employee::getSalary() const {
 
 // Setters
 void Employee::setRole(const std::string& role) {
+    if(role.empty())
+        throw std::invalid_argument("Role cannot be empty!");
     this->role = role;
 }
 void Employee::setDepartment(const std::string& department) {
+    if (department.empty())
+        throw std::invalid_argument("Department cannot be empty!");
     this->department = department;
 }
 void Employee::setSalary(double salary) {
+    if (salary < 0)
+        std::cerr << "Salary cannot be a negative number!";
     this->salary = salary;
 }
 
