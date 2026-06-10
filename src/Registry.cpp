@@ -286,7 +286,9 @@ void Registry::loadFromFiles() {
             try {
                 auto c = std::make_unique<Citizen>(name, std::stoi(idStr), address, phone, email);
                 addCitizen(std::move(c));
-            } catch (...) {}
+            } catch (const std::exception& e) {
+                std::cerr << "Load invalid data!";
+            }
         }
     }
 
