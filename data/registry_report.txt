@@ -1,0 +1,11 @@
+ === Registry Report === 
+
+Citizens (1):
+ Citizen,Mina,1,Lulin 123,0881234465,minakefa@gmail.com
+
+Employees (1):
+ Employee,Mitak,1,German 123,God,Hell,2000000.000000
+Service Requests (1):
+ Service Request: 1, Citizen ID: 1, Type: Weed, Description: More weed, Status: Completed
+
+=== End of Report ===
